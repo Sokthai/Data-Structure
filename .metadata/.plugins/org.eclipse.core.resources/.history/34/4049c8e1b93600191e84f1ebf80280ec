@@ -1,0 +1,61 @@
+package com.examples.ezoo.servlets;
+
+import java.util.List;
+import java.io.IOException;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import com.examples.ezoo.dao.AnimalDaoImpl;
+import com.examples.ezoo.dao.FeedingScheduleDAOimpl;
+import com.examples.ezoo.model.Animal;
+import com.examples.ezoo.model.FeedingSchedule;
+
+/**
+ * Servlet implementation class AssignFeedingScheduleServlet
+ */
+@WebServlet("/assignFeedingSchedule")
+public class AssignFeedingScheduleServlet extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+	
+	
+	
+	
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		AnimalDaoImpl animalDao = new AnimalDaoImpl();
+		FeedingScheduleDAOimpl fsDao = new FeedingScheduleDAOimpl();
+		List<Animal> unAssignedAnimals = animalDao.getUnassignedAnimals();
+		List<FeedingSchedule> fs = fsDao.getAllFeedingSchedule();
+		FeedingSchedule emptyFs = new FeedingSchedule();
+		emptyFs.setScheduleID(-1);
+		emptyFs.setNote("---- Please select a schedule ----");
+		fs.add(0, emptyFs);
+		
+		//put the unAssignedAnimal animal object to the session for use in assignFeedingSchedule
+		request.getSession().setAttribute("unAssignedAnimals", unAssignedAnimals);
+		request.getSession().setAttribute("feedingSchedules", fs);
+
+		request.getRequestDispatcher("assignFeedingSchedule.jsp").forward(request, response);
+	}
+
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String fsOption[] = request.getParameterValues("schedule");
+		String name[] = request.getParameterValues("name");
+		//String ids[] = request.getParameterValues("id");
+
+		System.out.print("name length is " + name.length);
+//		for (String id : fsOption){
+//			System.out.printf("the id is %s \n", id);
+//		}
+		doGet(request, response);
+	}
+
+}

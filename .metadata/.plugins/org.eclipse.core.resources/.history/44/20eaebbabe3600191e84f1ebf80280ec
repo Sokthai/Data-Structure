@@ -1,0 +1,77 @@
+package com.examples.ezoo.servlets;
+
+import java.util.List;
+import java.io.IOException;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import com.examples.ezoo.dao.AnimalDaoImpl;
+import com.examples.ezoo.dao.FeedingScheduleDAOimpl;
+import com.examples.ezoo.model.Animal;
+import com.examples.ezoo.model.FeedingSchedule;
+
+/**
+ * Servlet implementation class AssignFeedingScheduleServlet
+ */
+@WebServlet("/assignFeedingSchedule")
+public class AssignFeedingScheduleServlet extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+	
+	
+	
+	
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		AnimalDaoImpl animalDao = new AnimalDaoImpl();
+		FeedingScheduleDAOimpl fsDao = new FeedingScheduleDAOimpl();
+		List<Animal> unAssignedAnimals = animalDao.getUnassignedAnimals();
+		List<FeedingSchedule> fs = fsDao.getAllFeedingSchedule();
+		FeedingSchedule emptyFs = new FeedingSchedule();
+		emptyFs.setScheduleID(-1);
+		emptyFs.setNote("---- Please select a schedule ----");
+		fs.add(0, emptyFs);
+		
+		//put the unAssignedAnimal animal object to the session for use in assignFeedingSchedule
+		request.getSession().setAttribute("unAssignedAnimals", unAssignedAnimals);
+		request.getSession().setAttribute("feedingSchedules", fs);
+
+		request.getRequestDispatcher("assignFeedingSchedule.jsp").forward(request, response);
+	}
+
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String fsOption[] = request.getParameterValues("schedule"); //retrieve the option value from multiple select tag
+		FeedingScheduleDAOimpl fsDao = new FeedingScheduleDAOimpl();
+		
+		for (String id : fsOption){
+			String schedule[] = id.split(",");
+			System.out.println((schedule[0]));
+			if (!(schedule[0] == "-1")){
+				System.out.println("in or not");
+				FeedingSchedule fs = new FeedingSchedule(); //create fs to insert into the database
+				Animal animal = new Animal(); //create animal to insert into the db
+				fs.setScheduleID(Integer.parseInt(schedule[0])); //the assignFeedingSchedule is expect only id (since i implemented that way)
+				animal.setAnimalID(Integer.parseInt(schedule[1]));
+				
+				try{
+					fsDao.assignFeedingSchedule(fs, animal);
+					
+				}catch(Exception e){
+					e.printStackTrace();
+				}
+			}
+		}
+		
+
+	
+		doGet(request, response);
+	}
+
+}

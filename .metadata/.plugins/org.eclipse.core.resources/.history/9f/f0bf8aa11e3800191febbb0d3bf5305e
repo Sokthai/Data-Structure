@@ -1,0 +1,55 @@
+package com.examples.ezoo.servlets;
+
+import java.util.List;
+import java.io.IOException;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import com.examples.ezoo.dao.FeedingScheduleDAOimpl;
+import com.examples.ezoo.model.FeedingSchedule;
+
+/**
+ * Servlet implementation class DeleteFeedingScheduleServlet
+ */
+@WebServlet("/deleteFeedingSchedule")
+public class DeleteFeedingScheduleServlet extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		FeedingScheduleDAOimpl dao = new FeedingScheduleDAOimpl();
+		List<FeedingSchedule> fs = dao.getAllFeedingSchedule();
+		
+
+		if (fs.isEmpty()){
+			request.getSession().setAttribute("message", "NO FEEDING SCHEDULE EXIST IN THE DATABASE");
+		}
+		//put the unAssignedAnimal animal object to the session for use in assignedAnimals
+		request.getSession().setAttribute("FeedingSchedules", fs);
+		
+		request.getRequestDispatcher("deleteFeedingSchedule.jsp").forward(request, response);
+
+		
+	}
+
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String deleteFs[] = request.getParameterValues("deleteFs"); //retrieve the option value from multiple select tag
+		
+		if (deleteFs.length > 0){
+			
+		}else{
+			request.getSession().setAttribute("message", "PLEASE SELECT ANY SCHEDULE TO DELETE");
+			doGet(request, response);
+		}
+		
+	}
+
+}

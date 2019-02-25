@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename resource &apos;AlarmClock/starter&apos; to &apos;readme&apos;" description="Rename resource &apos;starter&apos;" flags="7" id="org.eclipse.ltk.core.refactoring.rename.resource" input="starter" name="readme" stamp="1550152168854" updateReferences="true"/>
+</session>

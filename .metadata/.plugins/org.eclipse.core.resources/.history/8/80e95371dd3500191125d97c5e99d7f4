@@ -1,0 +1,23 @@
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+</head>
+<body>
+	<!--  schedule_id SERIAL not null primary key,
+	feeding_time varchar(50),
+	recurrence varchar(50),
+	food varchar(256),
+	note text  -->
+	
+	<form method="post" action="CreateFeedingScheduleServlet">
+		<label for="time">Feeding Time:</label><input name="time" id="time" />
+		<label for="time">Recurrence:</label><input name="recurrence" id="time" />
+		<label for="time">Food:</label><input name="food" id="time" />
+		<label for="time">Note:</label><textarea name="note" id="note" cols="20" rols="15"></textarea>
+		<input type="submit" value="Add"/>
+	</form>
+</body>
+</html>

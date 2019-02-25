@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body>
+<p>this is Dynamic testing web from Eclipse </p>
+<a href="test.html">test.html</a>
+<form method="post" action="SimpleServlet">
+	<input name="username" placeholder="usrename">
+	<input name="password" placeholder="password"/>
+	<input type="submit" value="submit"/>
+	
+</form>
+</body>
+</html>

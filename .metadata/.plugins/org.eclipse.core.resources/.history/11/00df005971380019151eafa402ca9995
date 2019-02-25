@@ -1,0 +1,79 @@
+package com.examples.ezoo.servlets;
+
+import java.io.IOException;
+import java.sql.SQLException;
+import java.util.List;
+
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import com.examples.ezoo.dao.FeedingScheduleDAOimpl;
+import com.examples.ezoo.model.FeedingSchedule;
+
+/**
+ * Servlet implementation class UpdateFeedingScheduleServlet
+ */
+@WebServlet("/updateFeedingSchedule")
+public class UpdateFeedingScheduleServlet extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		FeedingScheduleDAOimpl dao = new FeedingScheduleDAOimpl();
+		
+		String id = request.getParameter("id");
+		
+		if (id == null){ //if first launching the page
+			List<FeedingSchedule> fs = dao.getAllFeedingSchedule();
+			if (fs.isEmpty()){
+				request.getSession().setAttribute("message", "NO FEEDING SCHEDULE EXIST IN THE DATABASE");
+			}
+			System.out.println("he or not");
+			//put the unAssignedAnimal animal object to the session for use in assignedAnimals
+			request.getSession().setAttribute("FeedingSchedules", fs);		
+			request.getRequestDispatcher("updateFeedingSchedule.jsp").forward(request, response);
+		}else{
+			
+			
+			FeedingSchedule fs = dao.getFeedingScheuld(id);
+			if (fs == null){
+				request.getSession().setAttribute("message", "CANNOT FIND THIS FEEDING SCHEDULE");
+			}
+			
+			request.getSession().setAttribute("feedingSchedule", fs);
+			request.getRequestDispatcher("updateFeedingScheduleForm.jsp").forward(request, response);
+
+		}
+	}
+
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		Long id = Long.parseLong(request.getParameter("id"));
+		String feedingTime = request.getParameter("feedingTime");
+		String recurrence = request.getParameter("recurrence");
+		String food = request.getParameter("food");
+		String note = request.getParameter("note");
+		FeedingScheduleDAOimpl fsDao = new FeedingScheduleDAOimpl();
+		FeedingSchedule fs = new FeedingSchedule(id, feedingTime, recurrence, food, note);
+		
+		try{
+			fsDao.updateFeedingSchedule(fs);
+			System.out.println("here");
+			request.getRequestDispatcher("updateFeedingSchedule.jsp").forward(request, response);
+
+		}catch(Exception e){
+			e.printStackTrace();
+			request.getSession().setAttribute("message", "CANNOT UPDATE FEEDING SCHEDULE AT THIS TIME");
+			doGet(request, response);
+		}
+		
+	}
+
+}

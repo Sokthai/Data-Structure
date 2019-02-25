@@ -1,0 +1,8 @@
+127.0.0.1 - - [23/Feb/2019:18:12:59 -0500] "GET / HTTP/1.1" 404 1074
+0:0:0:0:0:0:0:1 - - [23/Feb/2019:18:20:08 -0500] "GET /eZoo/ HTTP/1.1" 200 8575
+0:0:0:0:0:0:0:1 - - [23/Feb/2019:18:20:12 -0500] "GET /eZoo/assignFeedingSchedule HTTP/1.1" 200 7260
+0:0:0:0:0:0:0:1 - - [23/Feb/2019:18:21:17 -0500] "GET /eZoo/assignFeedingSchedule HTTP/1.1" 200 7260
+0:0:0:0:0:0:0:1 - - [23/Feb/2019:18:21:19 -0500] "GET /eZoo/assignFeedingSchedule HTTP/1.1" 200 7260
+0:0:0:0:0:0:0:1 - - [23/Feb/2019:18:21:21 -0500] "GET /eZoo/assignFeedingSchedule HTTP/1.1" 200 7260
+0:0:0:0:0:0:0:1 - - [23/Feb/2019:18:21:23 -0500] "GET /eZoo/addFeedingSchedule HTTP/1.1" 200 8149
+0:0:0:0:0:0:0:1 - - [23/Feb/2019:18:21:24 -0500] "GET /eZoo/addAnimal HTTP/1.1" 200 10682

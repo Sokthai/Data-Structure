@@ -1,0 +1,261 @@
+package com.examples.ezoo.dao;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
+
+import com.examples.ezoo.model.Animal;
+import com.examples.ezoo.model.FeedingSchedule;
+
+public class FeedingScheduleDAOimpl implements FeedingScheduleDAO{
+	public FeedingScheduleDAOimpl(){}
+	/**
+	 * Database Relationship (Feb/21/19)
+	 * One animal has only one feeding schedule.
+	 * One feeding schedule can have more than one animal
+	 */
+	
+	//	A method to add a given feeding schedule to the database.	
+	public void addFeedingSchedule(FeedingSchedule feedingSchedule)throws Exception{
+		PreparedStatement stmt = null;
+		Connection connection = null;
+		int success = 0; 
+		try{
+			connection = DAOUtilities.getConnection();
+			String sql = "INSERT INTO feeding_schedule VALUES (?, ?, ?, ?, ?)";
+			
+			stmt = connection.prepareStatement(sql);
+			stmt.setLong(1, feedingSchedule.getScheduleID()); //unique field. this one will be auto_increment (SERIAL) if we don't supply it
+			stmt.setString(2, feedingSchedule.getFeedingTime());
+			stmt.setString(3, feedingSchedule.getRecurrence());
+			stmt.setString(4, feedingSchedule.getFood());
+			stmt.setString(5, feedingSchedule.getNote());
+			
+			success = stmt.executeUpdate();
+		}catch(SQLException e){
+			e.printStackTrace();
+		}finally{
+			try{
+				if (stmt != null){
+					stmt.close();
+				}
+				if (connection != null){
+					connection.close();
+				}
+			}catch(SQLException e){
+				e.printStackTrace();
+			}
+		}
+		
+		if (success == 0){
+			throw new Exception("Add feeding schedule fail: " + feedingSchedule);
+		}
+	}
+	
+//	A method to delete a given feeding schedule to the database. This method should first remove all references to that feeding schedule from the ANIMALS table.
+	public void deleteFeedingSchedule(FeedingSchedule feedingSchedule)throws Exception{
+		PreparedStatement stmt = null;
+		Connection connection = null;
+		int success = 0; 
+		try{
+			connection = DAOUtilities.getConnection();
+			String sql = "DELETE FROM feeding_schedule WHERE schedule_id = ?";
+			
+			stmt = connection.prepareStatement(sql);
+			stmt.setLong(1, feedingSchedule.getScheduleID());
+			
+			success = stmt.executeUpdate();
+		}catch(SQLException e){
+			e.printStackTrace();
+		}finally{
+			try{
+				if (stmt != null){
+					stmt.close();
+				}
+				if (connection != null){
+					connection.close();
+				}
+			}catch(SQLException e){
+				e.printStackTrace();
+			}
+		}
+		
+		if (success == 0){
+			throw new Exception("Add feeding schedule fail: " + feedingSchedule);
+		}
+	}
+	
+	//A method to retrieve all feeding schedules from the database
+	public List<FeedingSchedule> getAllFeedingSchedule(){
+		Statement stmt = null;
+		Connection connection = null;
+		List<FeedingSchedule> feedingSchedule = new ArrayList<>();
+		
+		try {
+			connection = DAOUtilities.getConnection();
+			stmt = connection.createStatement();
+			String sql = "SELECT * FROM feeding_Schedule";
+			ResultSet rs = stmt.executeQuery(sql);
+			
+			while(rs.next()){
+				feedingSchedule.add(
+						new FeedingSchedule(rs.getLong("schedule_id"),rs.getString("feeding_time"),
+						rs.getString("recurrence"),rs.getString("food"),rs.getString("note")));
+			}
+		}catch(SQLException e){
+			e.printStackTrace();
+		}finally{
+			try{
+				if (stmt != null){
+					stmt.close();
+				}
+				if (connection != null){
+					connection.close();
+				}
+			}catch(SQLException e){
+				e.printStackTrace();
+			}
+		}
+		return feedingSchedule;
+		
+	};
+	
+	
+	//A method to retrieve a single feeding schedule from the database for a given animal
+	public FeedingSchedule getFeedingScheuld(Animal animal){
+		Connection connection = null;
+		FeedingSchedule fs = new FeedingSchedule();
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
+		PreparedStatement stmtRelation = null;
+		ResultSet rsRelation = null;
+		long scheduleID = 0L;
+		try{
+			connection = DAOUtilities.getConnection();
+			String sqlRelaship = "SELECT * FROM animals_feeding_schedule WHERE animal_id = ?";
+			String sql = "SELECT * FROM feeding_schedule WHERE schedule_id = ?";
+			
+			//getting the scheudle_id from the relational animals_feeding_schedule table 
+			stmtRelation = connection.prepareStatement(sqlRelaship);
+			stmtRelation.setLong(1,  animal.getAnimalID());
+			rsRelation = stmtRelation.executeQuery();
+			rsRelation.next();
+			scheduleID = rsRelation.getLong("schedule_id"); //return the schedule id from relation table
+			
+			//passing the schedule_id to feeding_schedule
+			stmt = connection.prepareStatement(sql);
+			stmt.setLong(1,  scheduleID);
+			rs = stmt.executeQuery();
+			
+			while (rs.next()){
+				fs.setScheduleID(rs.getLong("schedule_id"));
+				fs.setFeedingTime(rs.getString("feeding_time"));
+				fs.setFood(rs.getString("food"));
+				fs.setNote(rs.getString("note"));
+				fs.setRecurrence(rs.getString("recurrence"));
+			}
+		}catch(SQLException e){
+			e.printStackTrace();
+		}finally{
+			try{
+				if (stmt != null){
+					stmt.close();
+				}
+				if (connection != null){
+					connection.close();
+				}
+			}catch(SQLException e){
+				e.printStackTrace();
+			}
+		}
+		
+		return fs;
+	}
+	
+	//	A method to assign a given feeding schedule to a given animal.
+	public void assignFeedingSchedule(FeedingSchedule feedingSchedule, Animal animal) throws Exception{
+		Connection connection = null;
+		PreparedStatement stmt = null;
+		int success = 0;// 0 mean error
+		try{
+			connection = DAOUtilities.getConnection();
+			String sql = "INSERT INTO animals_feeding_schedule VALUES (?, ?)";
+			
+			//insert new relation to between a given schedule and animal to animals_feeding_schedule
+			stmt = connection.prepareStatement(sql);
+			stmt.setLong(1, animal.getAnimalID());
+			stmt.setLong(2, feedingSchedule.getScheduleID());
+			
+			success = stmt.executeUpdate();
+		}catch(SQLException e){
+			e.printStackTrace();
+		}finally{
+			try{
+				if (stmt != null){
+					stmt.close();
+				}
+				if (connection != null){
+					connection.close();
+				}
+			}catch(SQLException e){
+				e.printStackTrace();
+			}
+		}
+		
+		if (success == 0 ){ //if cannot execute sql
+			throw new Exception("Assign schedule fail: " + feedingSchedule);
+		}
+		
+	}
+	
+	//A method to remove a feeding schedule from a given animal.
+	public void removeFeedingSchedule(Animal animal)throws Exception{
+		Connection connection = null;
+		PreparedStatement stmt = null;
+		PreparedStatement stmtRelation = null;
+		ResultSet rsRelation = null;
+		long scheduleID = 0L;
+		int success = 0; //0 mean error
+		try{
+			connection = DAOUtilities.getConnection();
+			String sql = "DELETE FROM animals_feeding_schedule WHERE animal_id = ?";	
+//			String sqlRelaship = "SELECT * FROM animals_feeding_schedule WHERE animal = ?";
+			
+			//getting the scheudle_id from the relational animals_feeding_schedule table 
+//			stmtRelation = connection.prepareStatement(sqlRelaship);
+//			stmtRelation.setLong(1,  animal.getAnimalID());
+//			rsRelation = stmtRelation.executeQuery();
+//			scheduleID = rsRelation.getLong("schedule_id");
+//			
+			
+			//delete the relationship between animal and feeding_schedule table
+			//we may delete the schedule from feeding_schedule also if needed. 
+			stmt = connection.prepareStatement(sql);
+			stmt.setLong(1, animal.getAnimalID());
+			
+			success = stmt.executeUpdate();
+		}catch(SQLException e){
+			e.printStackTrace();
+		}finally{
+			try{
+				if (stmt != null){
+					stmt.close();
+				}
+				if (connection != null){
+					connection.close();
+				}
+			}catch(SQLException e){
+				e.printStackTrace();
+			}
+		}
+		
+		if (success == 0 ){ //if cannot execute sql
+			throw new Exception("Remove schedule fail: " + animal);
+		}
+	}
+	
+	
+}

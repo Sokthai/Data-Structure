@@ -1,0 +1,70 @@
+package com.examples.ezoo.servlets;
+
+import java.io.IOException;
+import java.sql.SQLIntegrityConstraintViolationException;
+
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import com.examples.ezoo.dao.FeedingScheduleDAOimpl;
+import com.examples.ezoo.model.FeedingSchedule;
+
+/**
+ * Servlet implementation class CreateFeedingScheduleServlet
+ */
+@WebServlet("/addFeedingSchedule")
+public class CreateFeedingScheduleServlet extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+
+    /**
+     * Default constructor. 
+     */
+    public CreateFeedingScheduleServlet() {
+    	
+        // TODO Auto-generated constructor stub
+    }
+
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {		
+		request.getRequestDispatcher("addFeedingSchedule.jsp").forward(request, response);
+	}
+
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
+		System.out.print("ok i can do it doPost");
+		Long id = Long.parseLong(request.getParameter("id"));
+		String feedingTime = request.getParameter("feedingTime");
+		String recurrence = request.getParameter("recurrence");
+		String food = request.getParameter("food");
+		String note = request.getParameter("note");
+		
+		FeedingSchedule fs = new FeedingSchedule(id, feedingTime, recurrence, food, note);
+		
+		FeedingScheduleDAOimpl dao = new FeedingScheduleDAOimpl();
+		
+		try{
+			dao.addFeedingSchedule(fs);
+		}catch(SQLIntegrityConstraintViolationException e){//if the id constraint is already in use.
+			//change the message
+			request.getSession().setAttribute("message", "Id of " + fs.getScheduleID() + " is already in use");
+			request.getSession().setAttribute("messageClass", "alert-danger");
+			
+			request.getRequestDispatcher("addAnimal.jsp").forward(request, response);
+			
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		
+
+		
+	}
+
+}

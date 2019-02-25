@@ -1,0 +1,77 @@
+package com.examples.ezoo.servlets;
+
+import java.io.IOException;
+import java.sql.SQLException;
+import java.sql.SQLIntegrityConstraintViolationException;
+
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.postgresql.util.PSQLException;
+
+import com.examples.ezoo.dao.FeedingScheduleDAOimpl;
+import com.examples.ezoo.model.FeedingSchedule;
+
+/**
+ * Servlet implementation class CreateFeedingScheduleServlet
+ */
+@WebServlet("/addFeedingSchedule")
+public class CreateFeedingScheduleServlet extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+
+
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {		
+		request.getRequestDispatcher("addFeedingSchedule.jsp").forward(request, response);
+	}
+
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
+		Long id = Long.parseLong(request.getParameter("id"));
+		String feedingTime = request.getParameter("feedingTime");
+		String recurrence = request.getParameter("recurrence");
+		String food = request.getParameter("food");
+		String note = request.getParameter("note");
+		
+		FeedingSchedule fs = new FeedingSchedule(id, feedingTime, recurrence, food, note);
+		
+		FeedingScheduleDAOimpl dao = new FeedingScheduleDAOimpl();
+		
+		try{
+			dao.addFeedingSchedule(fs);
+			request.getSession().setAttribute("message", "Feeding Schedule successfully created");
+			request.getSession().setAttribute("messageClass", "alert-success");
+			doGet(request, response);
+			//response.getWriter().append("May need to create a class to display all schedule after successful feeding schedule creation. Served at: ").append(request.getContextPath());
+		}catch(SQLException e){//if the id constraint is already in use.
+			e.printStackTrace();
+
+			//change the message
+			request.getSession().setAttribute("message", "Id of " + fs.getScheduleID() + " is already in use");
+			request.getSession().setAttribute("messageClass", "alert-danger");
+			
+			request.getRequestDispatcher("addFeedingSchedule.jsp").forward(request, response);
+			
+		}catch(Exception e){
+			//change the message
+			e.printStackTrace();
+			System.out.print(e.getMessage());
+			request.getSession().setAttribute("message", "There was a problem creating the feeding schedule at this time");
+			request.getSession().setAttribute("messageClass", "alert-danger");
+			
+			request.getRequestDispatcher("addFeedingSchedule.jsp").forward(request, response);
+		}
+		
+
+		
+	}
+
+}

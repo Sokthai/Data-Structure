@@ -1,0 +1,6 @@
+127.0.0.1 - - [12/Feb/2019:22:27:47 -0500] "GET / HTTP/1.1" 404 1074
+0:0:0:0:0:0:0:1 - - [12/Feb/2019:22:28:33 -0500] "GET /eZoo/ HTTP/1.1" 200 8340
+0:0:0:0:0:0:0:1 - - [12/Feb/2019:22:28:34 -0500] "GET /eZoo/resources/imgs/ezoo3.jpg HTTP/1.1" 200 550200
+0:0:0:0:0:0:0:1 - - [12/Feb/2019:22:28:34 -0500] "GET /eZoo/resources/libraries/js/cbpAnimatedHeader.js HTTP/1.1" 200 920
+0:0:0:0:0:0:0:1 - - [12/Feb/2019:22:28:34 -0500] "GET /eZoo/resources/scripts/custom.js HTTP/1.1" 200 572
+0:0:0:0:0:0:0:1 - - [12/Feb/2019:22:28:34 -0500] "GET /eZoo/resources/libraries/font-awesome/fonts/fontawesome-webfont.woff?v=4.2.0 HTTP/1.1" 200 65452

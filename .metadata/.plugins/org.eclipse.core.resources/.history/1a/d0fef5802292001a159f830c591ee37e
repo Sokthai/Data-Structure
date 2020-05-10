@@ -1,0 +1,16 @@
+package twoSum;
+
+public class Main {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		TowSum ts = new TowSum();
+		TowSum tsHash = new TowSum();
+		int t[] = {2, 7, 11, 15};
+		
+		
+		
+		tsHash.twoSumHash(t, 9);
+	}
+
+}

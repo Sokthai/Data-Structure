@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <section name="Workbench">
 	<section name="ShowViewDialog">
-		<item value="317" key="DIALOG_WIDTH"/>
-		<item value="1|Segoe UI|9.0|0|WINDOWS|1|-24|0|0|0|400|0|0|0|1|0|0|0|0|Segoe UI" key="DIALOG_FONT_NAME"/>
-		<item value="org.eclipse.debug.ui.ModuleView" key="ShowViewDialog.STORE_SELECTED_VIEW_ID"/>
-		<item value="437" key="DIALOG_HEIGHT"/>
-		<item value="532" key="DIALOG_X_ORIGIN"/>
-		<item value="151" key="DIALOG_Y_ORIGIN"/>
+		<item key="DIALOG_WIDTH" value="380"/>
+		<item key="DIALOG_FONT_NAME" value="1|Ubuntu|11.0|0|GTK|1|"/>
+		<item key="ShowViewDialog.STORE_SELECTED_VIEW_ID" value="org.eclipse.ui.navigator.ProjectExplorer"/>
+		<item key="DIALOG_HEIGHT" value="444"/>
+		<item key="DIALOG_X_ORIGIN" value="532"/>
+		<item key="DIALOG_Y_ORIGIN" value="151"/>
 		<list key="ShowViewDialog.STORE_EXPANDED_CATEGORIES_ID">
-			<item value="Debug"/>
+			<item value="General"/>
 		</list>
 	</section>
 </section>

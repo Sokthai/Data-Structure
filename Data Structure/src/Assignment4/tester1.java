@@ -5,7 +5,6 @@ public class tester1 {
 	
 		BinaryTree<String> t = new BinaryTree<>();
 	
-		
 		t.root.setElement("My root");	
 		
 		t.expandExternal(t.root);

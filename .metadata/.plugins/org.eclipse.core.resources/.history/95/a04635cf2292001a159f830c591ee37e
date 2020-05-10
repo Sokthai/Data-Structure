@@ -1,0 +1,19 @@
+package twoSum;
+
+public class Main {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		TowSum ts = new TowSum();
+		TowSum tsHash = new TowSum();
+		int t[] = {2, 7, 11, 15};
+		
+		int result2[] = ts.twoSum(t, 3);
+		System.out.printf("%d, %d", result2[0], result2[1]);
+
+		
+		int result[] = tsHash.twoSumHash(t, 3);
+		System.out.printf("%d, %d", result[0], result[1]);
+	}
+
+}

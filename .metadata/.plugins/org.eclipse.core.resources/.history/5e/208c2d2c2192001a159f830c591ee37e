@@ -1,0 +1,13 @@
+package twoSum;
+
+public class Main {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		TowSum ts = new TowSum();
+		int t[] = {2, 7, 11, 15};
+		
+		System.out.printf("%d, %d", ts.twoSum(t, 9)[0], ts.twoSum(t, 9)[1]);
+	}
+
+}

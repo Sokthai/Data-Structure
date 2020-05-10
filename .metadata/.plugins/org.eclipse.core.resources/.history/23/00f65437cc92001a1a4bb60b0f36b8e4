@@ -91,10 +91,10 @@ public abstract class AbstractMap<K, V> implements MapADT<K, V> {
 		}
 	}
 	
-	private class ValueIterable implements Iterable<V>{
+	private class ValueIterable implements Iterable{
 
 		@Override
-		public Iterator<V> iterator() {
+		public Iterator iterator() {
 			return new ValueIterator();
 		}
 		

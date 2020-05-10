@@ -1,5 +1,5 @@
 package map;
-//Map/9/2020
+
 public interface MapADT<K, V> {
 	 int size();
 	 boolean isEmpty();

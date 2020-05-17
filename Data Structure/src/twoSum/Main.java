@@ -15,6 +15,7 @@ public class Main {
 		
 		int result[] = tsHash.twoSumHash(t, target);
 		System.out.printf("%d, %d hash", result[0], result[1]);
+		
 	}
 
 }

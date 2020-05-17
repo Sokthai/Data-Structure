@@ -21,6 +21,12 @@ public class UnsortedTableMap<K, V> extends AbstractMap<K, V> {
 		return -1;
 	}
 	
+	
+	
+	
+	
+	
+	
 	public int size() {
 		return table.size();
 	}
@@ -60,7 +66,10 @@ public class UnsortedTableMap<K, V> extends AbstractMap<K, V> {
 		table.remove(n-1);
 		return answer;
 	}
-
+	
+	
+	
+	
 	
 	
 	private class EntryIterator implements Iterator<Entry<K, V>>{

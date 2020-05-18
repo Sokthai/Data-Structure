@@ -1,63 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <section name="Workbench">
-	<section name="WorkbenchPreferenceDialogSettings">
-		<item key="DIALOG_X_ORIGIN" value="401"/>
-		<item key="DIALOG_Y_ORIGIN" value="167"/>
-	</section>
-	<section name="org.eclipse.ui.internal.QuickAccess">
-		<item key="dialogHeight" value="250"/>
-		<item key="dialogWidth" value="350"/>
-		<list key="textEntries">
-			<item value="1"/>
-		</list>
-		<list key="orderedElements">
-			<item value="org.eclipse.datatools.connectivity.DataSourceExplorerNavigator"/>
-		</list>
-		<list key="orderedProviders">
-			<item value="org.eclipse.e4.ui.parts"/>
-		</list>
-		<list key="textArray">
-			<item value="data source"/>
-		</list>
-	</section>
-	<section name="NewWizardAction">
-		<item key="NewWizardSelectionPage.STORE_SELECTED_ID" value="org.eclipse.jst.jsp.ui.internal.wizard.NewJSPWizard"/>
-		<list key="NewWizardSelectionPage.STORE_EXPANDED_CATEGORIES_ID">
-			<item value="org.eclipse.wst.web.ui"/>
-		</list>
-	</section>
 	<section name="ImportExportAction">
 		<item key="ImportExportPage.STORE_SELECTED_IMPORT_WIZARD_ID" value="org.eclipse.ui.wizards.import.ExternalProject"/>
 		<list key="ImportExportPage.STORE_EXPANDED_IMPORT_CATEGORIES">
 			<item value="org.eclipse.ui.Basic"/>
-			<item value="org.eclipse.jst.ws.consumption.ui.wsimport.category"/>
-		</list>
-	</section>
-	<section name="FileSystemImportWizard">
-		<item key="WizardFileSystemResourceImportPage1.STORE_CREATE_CONTAINER_STRUCTURE_ID" value="true"/>
-		<item key="WizardFileSystemResourceImportPage1.STORE_PATH_VARIABLE_NAME_ID" value="ECLIPSE_HOME"/>
-		<item key="WizardFileSystemResourceImportPage1.STORE_OVERWRITE_EXISTING_RESOURCES_ID" value="false"/>
-		<item key="WizardFileSystemResourceImportPage1.STORE_CREATE_VIRTUAL_FOLDERS_ID" value="true"/>
-		<item key="WizardFileSystemResourceImportPage1.STORE_CREATE_LINKS_IN_WORKSPACE_ID" value="false"/>
-		<item key="WizardFileSystemResourceImportPage1.STORE_PATH_VARIABLE_SELECTED_ID" value="true"/>
-		<list key="WizardFileSystemResourceImportPage1.STORE_SOURCE_NAMES_ID">
-			<item value="C:\Users\sokth\Desktop\UML\Revature\eZoo-StarterKit"/>
-			<item value="C:\Users\sokth\Desktop\UML\Revature\eZoo_StarterKit"/>
-			<item value="C:\Users\sokth\Desktop\UML\Revature\eZooStarterKit"/>
-			<item value="C:\Users\sokth\Desktop\UML\workspace\AlarmClock"/>
-			<item value="C:\Users\sokth\Downloads\Assignments-20170510T165022Z-001\Assignments\Assignment I"/>
-			<item value="D:\surface\workspace\DataStrucure\src"/>
-			<item value="C:\Users\sokth\Downloads\Assignments-20170510T165022Z-001\Assignments"/>
-			<item value="D:\surface\workspace\RootElement\src"/>
-			<item value="D:\surface\workspace\PrimitiveTypes\src"/>
-			<item value="D:\surface\workspace\lambda\src"/>
-			<item value="D:\surface\workspace\javaTest\src"/>
-			<item value="D:\surface\workspace\generic\src"/>
-			<item value="D:\surface\workspace\deque\src"/>
-			<item value="D:\surface\workspace\contactUML\src"/>
-			<item value="D:\surface\workspace\Big&apos;s O\src"/>
-			<item value="D:\surface\workspace\Aggregation\src"/>
-			<item value="D:\surface\workspace\DataStrucure"/>
 		</list>
 	</section>
 </section>

@@ -1,3 +1,4 @@
+content_assist_lru_history=<?xml version\="1.0" encoding\="UTF-8" standalone\="no"?><history maxLHS\="100" maxRHS\="10"><lhs name\="myHash.AbstractHashMap"><rhs name\="myHash.SeparateChainingArrayList"/><rhs name\="myHash.SeparateChainingLinkList"/></lhs><lhs name\="myHash.HashInterface"><rhs name\="myHash.SeparateChainingArrayList"/><rhs name\="myHash.SeparateChainingLinkList"/></lhs><lhs name\="myHash.SeparateChainingArrayList"><rhs name\="myHash.SeparateChainingArrayList"/></lhs><lhs name\="myHash.SeparateChainingLinkList"><rhs name\="myHash.SeparateChainingLinkList"/></lhs></history>
 content_assist_number_of_computers=23
 content_assist_proposals_background=255,255,255
 content_assist_proposals_foreground=60,60,60

@@ -1,23 +1,23 @@
 package myHash;
 
-public class SeparateChaining<K, V> extends AbstractHashMap<K, V>{
+public class SeparateChainingArrayList<K, V> extends AbstractHashMap<K, V>{
 	
 	private int prime;
 	private int capacity;
 	private ScHashArrayList<K, V> table[];
 	private int n;
 	
-	public SeparateChaining(int capacity, int prime)   throws NullPointerException{
+	public SeparateChainingArrayList(int capacity, int prime) throws NullPointerException{
 		super(capacity, prime);
 		this.table = new ScHashArrayList[capacity];
 		this.n = 0;
 	}
 	//separate chaining method
-	public SeparateChaining(int capacity) {
+	public SeparateChainingArrayList(int capacity) {
 		this(capacity, 109345121);
 	}
 	
-	public SeparateChaining() {
+	public SeparateChainingArrayList() {
 		this(17);
 	}
 
